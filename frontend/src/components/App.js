@@ -255,6 +255,7 @@ function App() {
   const handleLogin = ({ email, password }) => {
     Auth.authorize(email, password)
       .then((res) => {
+        console.log(res)
         if (!res || res.message) {
           setIsSuccess(false);
           handleLoginInfoTooltipClick();

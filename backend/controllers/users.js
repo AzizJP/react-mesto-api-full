@@ -13,6 +13,8 @@ const BadRequestError = require('../errors/BadRequest');
 const ConflictError = require('../errors/ConflictError');
 const User = require('../models/user');
 
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 const getUsers = (req, res, next) => User.find({})
   .then((users) => res.send(users))
   .catch(() => next());
@@ -43,7 +45,8 @@ const createUser = (req, res, next) => {
   const {
     name, about, avatar, email, password,
   } = req.body;
-  bcrypt.hash(password, 10)
+  bcrypt
+    .hash(password, 10)
     .then((hash) => User.create({
       name,
       about,
@@ -53,7 +56,10 @@ const createUser = (req, res, next) => {
     }))
     .then(() => res.send({
       data: {
-        name, about, avatar, email,
+        name,
+        about,
+        avatar,
+        email,
       },
     }))
     .catch((err) => {
@@ -114,7 +120,13 @@ const login = (req, res, next) => {
 
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, 'some-secret-key', { expiresIn: '7d' });
+      const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', {
+        expiresIn: '7d',
+      });
+      res.cookie('jwt', token, {
+        maxAge: 3600000,
+        httpOnly: true,
+      });
       res.send({ token });
     })
     .catch(next);
