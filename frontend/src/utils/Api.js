@@ -2,7 +2,7 @@ export class Api {
   constructor(url) {
     this._url = url;
     this._headers = {
-      // authorization: "709128e1-de39-4fb6-bdfe-d24284f8ff5a",
+      authorization: `Bearer ${localStorage.getItem("token")}`,
       "Content-Type": "application/json",
     };
   }
@@ -17,7 +17,6 @@ export class Api {
   getInitialCards() {
     return fetch(`${this._url}/cards`, {
       method: "GET",
-      credentials: 'include',
       headers: this._headers,
     }).then(this._checkResponse);
   }
@@ -29,7 +28,6 @@ export class Api {
     };
     return fetch(`${this._url}/cards`, {
       method: "POST",
-      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify(body),
     }).then(this._checkResponse);
@@ -38,7 +36,6 @@ export class Api {
   deleteCard(cardId) {
     return fetch(`${this._url}/cards/${cardId}`, {
       method: "DELETE",
-      credentials: 'include',
       headers: this._headers,
     }).then(this._checkResponse);
   }
@@ -46,7 +43,6 @@ export class Api {
   getProfileInfo() {
     return fetch(`${this._url}/users/me`, {
       method: "GET",
-      credentials: 'include',
       headers: this._headers,
     }).then(this._checkResponse);
   }
@@ -58,7 +54,6 @@ export class Api {
     };
     return fetch(`${this._url}/users/me`, {
       method: "PATCH",
-      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify(body),
     }).then(this._checkResponse);
@@ -69,7 +64,6 @@ export class Api {
     };
     return fetch(`${this._url}/users/me/avatar`, {
       method: "PATCH",
-      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify(body),
     }).then(this._checkResponse);
@@ -78,10 +72,9 @@ export class Api {
   toogleLike(cardId, isLiked) {
     return fetch(`${this._url}/cards/${cardId}/likes`, {
       method: isLiked ? "DELETE" : "PUT",
-      credentials: 'include',
       headers: this._headers,
     }).then(this._checkResponse);
   }
 }
 
-export const api = new Api("https://api.ajp.mesto.nomoredomains.icu");
+export const api = new Api("http://localhost:3001");

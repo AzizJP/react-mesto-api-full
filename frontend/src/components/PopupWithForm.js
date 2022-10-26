@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 function PopupWithForm({
   title,
@@ -11,7 +11,11 @@ function PopupWithForm({
   inputValid,
   buttonText,
 }) {
-  const className = `popup popup_type_${name} ${isOpen ? "popup_opened" : ""}`;
+  const className = `popup popup_type_${name} ${isOpen ? 'popup_opened' : ''}`;
+
+  if (!isOpen) {
+    return null;
+  }
 
   return (
     <div className={className} onClick={onClose}>
@@ -38,7 +42,7 @@ function PopupWithForm({
           {children}
           <button
             type="submit"
-            className={`popup__save ${inputValid ? "" : "popup__save_invalid"}`}
+            className={`popup__save ${inputValid ? '' : 'popup__save_invalid'}`}
             disabled={!inputValid}
           >
             {buttonText}

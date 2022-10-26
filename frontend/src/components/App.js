@@ -1,27 +1,27 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { api } from "../utils/Api";
-import Footer from "./Footer";
-import Header from "./Header";
-import ImagePopup from "./ImagePopup";
-import Main from "./Main";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import "../index.css";
-import EditProfilePopup from "./EditProfilePopup";
-import EditAvatarPopup from "./EditAvatarPopup";
-import AddPlacePopup from "./AddPlacePopup";
-import PopupWithConfirmation from "./PopupWithConfirmation";
+import React, { useState, useCallback, useEffect } from 'react';
+import { api } from '../utils/Api';
+import Footer from './Footer';
+import Header from './Header';
+import ImagePopup from './ImagePopup';
+import Main from './Main';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import '../index.css';
+import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
+import PopupWithConfirmation from './PopupWithConfirmation';
 import {
   Redirect,
   Route,
   Switch,
   useHistory,
   useLocation,
-} from "react-router-dom";
-import Register from "./Register";
-import Login from "./Login";
-import ProtectedRoute from "./ProtectedRoute";
-import * as Auth from "../utils/Auth.js";
-import InfoTooltip from "./InfoTooltip";
+} from 'react-router-dom';
+import Register from './Register';
+import Login from './Login';
+import ProtectedRoute from './ProtectedRoute';
+import * as Auth from '../utils/Auth.js';
+import InfoTooltip from './InfoTooltip';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -36,20 +36,21 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [deletedCard, setDeletedCard] = useState(null);
 
-  const [currentUser, setCurrentUser] = useState({ name: "", about: "" });
+  const [currentUser, setCurrentUser] = useState({ name: '', about: '' });
   const [cards, setCards] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [userEmail, setUserEmail] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [userEmail, setUserEmail] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
   const history = useHistory();
   const path = useLocation();
+
   const resetForm = useCallback(() => {
-    setPassword("");
-    setEmail("");
-    setMessage("");
+    setPassword('');
+    setEmail('');
+    setMessage('');
   }, [setPassword, setEmail, setMessage]);
 
   useEffect(() => {
@@ -90,20 +91,20 @@ function App() {
 
   useEffect(() => {
     const closeByEscape = (evt) => {
-      if (evt.key === "Escape") {
+      if (evt.key === 'Escape') {
         closeAllPopups();
       }
     };
     if (isOpen) {
-      document.addEventListener("keydown", closeByEscape);
+      document.addEventListener('keydown', closeByEscape);
     } else {
-      document.removeEventListener("keydown", closeByEscape);
+      document.removeEventListener('keydown', closeByEscape);
     }
   }, [isOpen, closeAllPopups]);
 
   const handleCardLike = useCallback(
     (card) => {
-      const isLiked = card.likes.some((i) => i._id === currentUser._id);
+      const isLiked = card.likes.some((i) => i === currentUser._id);
       api
         .toogleLike(card._id, isLiked)
         .then((newCard) => {
@@ -239,52 +240,51 @@ function App() {
     Auth.register(password, email)
       .then((res) => {
         if (!res || res.status === 400) {
-          throw new Error("Что-то пошло не так!");
+          throw new Error('Что-то пошло не так!');
         }
         if (res.data) {
           setIsSuccess(true);
           setLoggedIn(true);
           resetForm();
-          history.push("/sign-in");
+          history.push('/sign-in');
         }
       })
       .then(() => handleRegisterInfoTooltipClick())
-      .catch((err) => setMessage(err.message || "Что-то пошло не так!"));
+      .catch((err) => setMessage(err.message || 'Что-то пошло не так!'));
   };
 
   const handleLogin = ({ email, password }) => {
     Auth.authorize(email, password)
       .then((res) => {
-        console.log(res)
         if (!res || res.message) {
           setIsSuccess(false);
           handleLoginInfoTooltipClick();
-          throw new Error("Неправильное имя пользователя или пароль");
+          throw new Error('Неправильное имя пользователя или пароль');
         }
         if (res.token) {
           setLoggedIn(true);
           resetForm();
-          localStorage.setItem("token", res.token);
-          history.push("/react-mesto-auth");
+          localStorage.setItem('token', res.token);
+          history.push('/');
         }
       })
-      .catch((err) => setMessage(err.message || "Что-то пошло не так!"));
+      .catch((err) => setMessage(err.message || 'Что-то пошло не так!'));
   };
 
   const tokenCheck = async (token) => {
     Auth.getContent(token).then((res) => {
       if (res) {
         setLoggedIn(true);
-        setUserEmail(res.data.email);
+        setUserEmail(res.email);
       }
     });
   };
 
   useEffect(() => {
-    let jwt = localStorage.getItem("token");
+    let jwt = localStorage.getItem('token');
     if (jwt) {
       tokenCheck(jwt);
-      history.push("/react-mesto-auth");
+      history.push('/');
     }
   }, [loggedIn, history]);
 
@@ -301,7 +301,7 @@ function App() {
           <Switch>
             <ProtectedRoute
               exact
-              path="/react-mesto-auth"
+              path="/"
               loggedIn={loggedIn}
               component={Main}
               onEditProfile={handleEditProfileClick}
@@ -335,11 +335,7 @@ function App() {
               />
             </Route>
             <Route>
-              {loggedIn ? (
-                <Redirect to="/react-mesto-auth" />
-              ) : (
-                <Redirect to="/sign-up" />
-              )}
+              {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-up" />}
             </Route>
           </Switch>
           <Footer />
