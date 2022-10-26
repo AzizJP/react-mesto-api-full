@@ -9,7 +9,7 @@ function Header({ emailVision, isOpen, onHeaderPopup, loggedOut }) {
     loggedOut();
   };
 
-  return path.pathname === "/react-mesto-auth" ? (
+  return path.pathname === "/" ? (
     <div className="header__container">
       <div
         className={`header__email ${isOpen ? "header__email_type_active" : ""}`}
@@ -25,7 +25,7 @@ function Header({ emailVision, isOpen, onHeaderPopup, loggedOut }) {
       </div>
       <header className="header__logged-in">
         <a
-          href="https://azizjp.github.io/react-mesto-auth/"
+          href="https://github.com/AzizJP/react-mesto-api-full"
           className="header__logo"
         >
           {" "}
@@ -41,7 +41,7 @@ function Header({ emailVision, isOpen, onHeaderPopup, loggedOut }) {
   ) : (
     <header className="header">
       <a
-        href="https://azizjp.github.io/react-mesto-auth/"
+        href="https://github.com/AzizJP/react-mesto-api-full"
         className="header__logo"
       >
         {" "}
