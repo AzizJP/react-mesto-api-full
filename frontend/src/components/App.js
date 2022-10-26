@@ -57,7 +57,7 @@ function App() {
     resetForm();
   }, [loggedIn, path, resetForm]);
 
-  useEffect(() => {
+  useEffect(() => {loggedIn &&
     Promise.all([api.getProfileInfo(), api.getInitialCards()])
       .then(([profile, cards]) => {
         setCurrentUser(profile);
@@ -66,7 +66,7 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [loggedIn]);
 
   const closeAllPopups = useCallback(() => {
     setIsEditProfilePopupOpen(false);
