@@ -66,7 +66,7 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  }, [loggedIn]);
+  }, [loggedIn, path]);
 
   const closeAllPopups = useCallback(() => {
     setIsEditProfilePopupOpen(false);
