@@ -1,5 +1,5 @@
-import React from "react";
-import PopupWithForm from "./PopupWithForm";
+import React from 'react';
+import PopupWithForm from './PopupWithForm';
 
 function PopupWithConfirmation({ card, onClose, onSubmit, isRequesting }) {
   function handleSubmit(evt) {
@@ -9,14 +9,14 @@ function PopupWithConfirmation({ card, onClose, onSubmit, isRequesting }) {
 
   return (
     <PopupWithForm
-      title={"Вы уверены?"}
-      name={"confirm"}
+      title={'Вы уверены?'}
+      name={'confirm'}
       isOpen={!!card}
       onClose={onClose}
       onSubmit={handleSubmit}
-      popupConfirmClass={"popup__title_confirm"}
+      popupConfirmClass={'popup__title_confirm'}
       inputValid={true}
-      buttonText={isRequesting ? "Удаляю..." : "Да"}
+      buttonText={isRequesting ? 'Удаляю...' : 'Да'}
     ></PopupWithForm>
   );
 }

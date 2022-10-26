@@ -1,23 +1,23 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from 'react-router-dom';
 
 function Header({ emailVision, isOpen, onHeaderPopup, loggedOut }) {
   const path = useLocation();
 
   const loggedOutClick = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
     onHeaderPopup();
     loggedOut();
   };
 
-  return path.pathname === "/" ? (
+  return path.pathname === '/' ? (
     <div className="header__container">
       <div
-        className={`header__email ${isOpen ? "header__email_type_active" : ""}`}
+        className={`header__email ${isOpen ? 'header__email_type_active' : ''}`}
       >
         <p className="header__email_text">{emailVision}</p>
         <Link
           onClick={loggedOutClick}
-          to={"/sign-in"}
+          to={'/sign-in'}
           className="header__button_popup"
         >
           Выйти
@@ -28,12 +28,12 @@ function Header({ emailVision, isOpen, onHeaderPopup, loggedOut }) {
           href="https://github.com/AzizJP/react-mesto-api-full"
           className="header__logo"
         >
-          {" "}
+          {' '}
         </a>
         <button
           onClick={onHeaderPopup}
           className={`header__popup ${
-            isOpen ? "header__popup_type_active" : ""
+            isOpen ? 'header__popup_type_active' : ''
           }`}
         ></button>
       </header>
@@ -44,22 +44,23 @@ function Header({ emailVision, isOpen, onHeaderPopup, loggedOut }) {
         href="https://github.com/AzizJP/react-mesto-api-full"
         className="header__logo"
       >
-        {" "}
+        {' '}
       </a>
       <Link
+        onClick={loggedOutClick}
         to={
-          path.pathname === "/sign-in"
-            ? "/sign-up"
-            : path.pathname === "/sign-up"
-            ? "/sign-in"
-            : "/"
+          path.pathname === '/sign-in'
+            ? '/sign-up'
+            : path.pathname === '/sign-up'
+            ? '/sign-in'
+            : '/'
         }
         className="header__button"
       >
-        {path.pathname === "/sign-in"
-          ? "Регистрация"
-          : path.pathname === "/sign-up"
-          ? "Войти"
+        {path.pathname === '/sign-in'
+          ? 'Регистрация'
+          : path.pathname === '/sign-up'
+          ? 'Войти'
           : null}
       </Link>
     </header>

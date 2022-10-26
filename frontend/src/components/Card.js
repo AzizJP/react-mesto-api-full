@@ -1,5 +1,5 @@
-import React from "react";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import React from 'react';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Card(props) {
   const currentUser = React.useContext(CurrentUserContext);
@@ -32,7 +32,7 @@ function Card(props) {
         <div className="card__like_group">
           <button
             type="button"
-            className={`card__like ${isLiked ? "card__like_active" : ""}`}
+            className={`card__like ${isLiked ? 'card__like_active' : ''}`}
             aria-label="Оценить"
             onClick={handleLikeClick}
           ></button>
@@ -40,7 +40,7 @@ function Card(props) {
         </div>
         <button
           type="button"
-          className={`${!isOwn ? "card__trash_hidden" : "card__trash"}`}
+          className={`${!isOwn ? 'card__trash_hidden' : 'card__trash'}`}
           aria-label="Удалить"
           onClick={handleDeleteClick}
         ></button>

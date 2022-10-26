@@ -57,22 +57,26 @@ function App() {
     resetForm();
   }, [loggedIn, path, resetForm]);
 
-  useEffect(() => {loggedIn &&
-    Promise.all([api.getProfileInfo(), api.getInitialCards()])
-      .then(([profile, cards]) => {
-        setCurrentUser(profile);
-        setCards(cards);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [loggedIn, path]);
+  useEffect(() => {
+    loggedIn &&
+      Promise.all([api.getProfileInfo(), api.getInitialCards()])
+        .then(([profile, cards]) => {
+          setCurrentUser(profile);
+          setCards(cards);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  }, [loggedIn]);
 
   const closeAllPopups = useCallback(() => {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setSelectedCard(null);
+  }, []);
+
+  const closeRegisterLoginPopups = useCallback(() => {
     setIsRegisterInfoTooltipOpen(false);
     setIsLoginInfoTooltipOpen(false);
     setTimeout(() => {
@@ -262,9 +266,9 @@ function App() {
           throw new Error('Неправильное имя пользователя или пароль');
         }
         if (res.token) {
+          localStorage.setItem('token', res.token);
           setLoggedIn(true);
           resetForm();
-          localStorage.setItem('token', res.token);
           history.push('/');
         }
       })
@@ -334,7 +338,7 @@ function App() {
                 onLogin={handleLogin}
               />
             </Route>
-            <Route>
+            <Route path="*">
               {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-up" />}
             </Route>
           </Switch>
@@ -373,7 +377,7 @@ function App() {
             name="info-tooltip"
             isSuccess={isSuccess}
             isOpen={isRegisterInfoTooltipOpen}
-            onClose={closeAllPopups}
+            onClose={closeRegisterLoginPopups}
             successText="Вы успешно зарегистрировались!"
             errorText="Что-то пошло не так! Попробуйте ещё раз."
           />
@@ -381,7 +385,7 @@ function App() {
             name="info-tooltip"
             isSuccess={isSuccess}
             isOpen={isLoginInfoTooltipOpen}
-            onClose={closeAllPopups}
+            onClose={closeRegisterLoginPopups}
             errorText="Что-то пошло не так! Попробуйте ещё раз."
           />
         </div>

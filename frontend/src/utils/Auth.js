@@ -1,4 +1,4 @@
-export const BASE_URL = "https://api.ajp.mesto.nomoredomains.icu";
+export const BASE_URL = 'https://api.ajp.mesto.nomoredomains.icu';
 
 const checkResponse = (res) => {
   if (res) {
@@ -9,33 +9,33 @@ const checkResponse = (res) => {
 
 export const register = (password, email) => {
   return fetch(`${BASE_URL}/signup`, {
-    method: "POST",
+    method: 'POST',
     credentials: 'include',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ "password": password, "email": email }),
+    body: JSON.stringify({ 'password': password, 'email': email }),
   }).then((res) => checkResponse(res));
 };
 
 export const authorize = (email, password) => {
   return fetch(`${BASE_URL}/signin`, {
-    method: "POST",
+    method: 'POST',
     credentials: 'include',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ "password": password, "email": email }),
+    body: JSON.stringify({ 'password': password, 'email': email }),
   }).then((res) => checkResponse(res));
 };
 
 export const getContent = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
-    method: "GET",
+    method: 'GET',
     credentials: 'include',
     headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
     },
   }).then((res) => checkResponse(res));
 };

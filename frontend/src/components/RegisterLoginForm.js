@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 function RegisterLoginForm({
   title,
@@ -11,8 +11,8 @@ function RegisterLoginForm({
   message,
 }) {
   return (
-    <div className={"regiser-login__container"}>
-      <h2 className={"regiser-login__title"}>{title}</h2>
+    <div className={'regiser-login__container'}>
+      <h2 className={'regiser-login__title'}>{title}</h2>
       <form noValidate onSubmit={onSubmit} className="regiser-login__form">
         <input
           className={`regiser-login__input regiser-login__input_type_email`}

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 function InfoTooltip({
   isSuccess,
@@ -8,7 +8,7 @@ function InfoTooltip({
   successText,
   errorText,
 }) {
-  const className = `popup popup_type_${name} ${isOpen ? "popup_opened" : ""}`;
+  const className = `popup popup_type_${name} ${isOpen ? 'popup_opened' : ''}`;
   return (
     <div className={className} onClick={onClose}>
       <div
@@ -26,10 +26,10 @@ function InfoTooltip({
         />
         <div
           className={`popup__info-tooltip ${
-            !isSuccess ? "popup__info-tooltip_type_error" : ""
+            !isSuccess ? 'popup__info-tooltip_type_error' : ''
           }`}
         ></div>
-        <h3 className={"popup__info-tooltip_title"}>
+        <h3 className={'popup__info-tooltip_title'}>
           {isSuccess ? successText : errorText}
         </h3>
       </div>

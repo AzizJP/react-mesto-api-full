@@ -1,4 +1,4 @@
-const { Route, Redirect } = require("react-router-dom");
+const { Route, Redirect } = require('react-router-dom');
 
 const ProtectedRoute = ({ component: Component, ...props }) => {
   return (

@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import RegisterLoginForm from "./RegisterLoginForm";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import RegisterLoginForm from './RegisterLoginForm';
 
 function Register({
   onRegister,
@@ -27,8 +27,8 @@ function Register({
         setPassword={setPassword}
         message={message}
       />
-      <div className={"regiser-question"}>
-        <h4 className={"regiser-question__title"}>Уже зарегистрированы?</h4>
+      <div className={'regiser-question'}>
+        <h4 className={'regiser-question__title'}>Уже зарегистрированы?</h4>
         <Link to="/sign-in" className={`regiser-question__button`}>
           Войти
         </Link>
