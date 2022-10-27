@@ -25,11 +25,12 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
+app.use(helmet());
+
 app.use('/', routes);
 
 app.use(errorLogger);
 
-app.use(helmet());
 app.use(errors());
 app.use(errorHandler);
 
