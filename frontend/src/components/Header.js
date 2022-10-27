@@ -4,7 +4,7 @@ function Header({ emailVision, isOpen, onHeaderPopup, loggedOut }) {
   const path = useLocation();
 
   const loggedOutClick = () => {
-    localStorage.removeItem('token');
+    localStorage.clear();
     onHeaderPopup();
     loggedOut();
   };
